@@ -17,32 +17,35 @@ async function validateUserId(req, res, next) {
       req.user = possibleUser
       next();
     } else {
-      next({ message: "404 not found", status: 404});
+      next({ message: "user not found", status: 404});
     }
   } catch (err) {
     next(err);
   }
 }
 
-// Users.getById(req.params.id)
-// .then(user=>{
-//   if (user) {
-//     res.status(200).json(user)
-//   } else {
-//     res.status(404).json({ message: "A user with the specified ID does not exist"})
-//   }
-// })
-// .catch(err=>{
-//   console.log(err)
-//   res.status(500).json({ message: err.message})
-// })
-
 function validateUser(req, res, next) {
   // DO YOUR MAGIC
+  if  (
+    !req.body.name ||
+    typeof req.body.name !== 'string'
+  ) {
+    next({ message: "missing required name field", status: 400 })
+  } else {
+    next()
+  }
 }
 
 function validatePost(req, res, next) {
   // DO YOUR MAGIC
+  if  (
+    !req.body.text ||
+    typeof req.body.text !== 'string'
+  ) {
+    next({ message: "missing required text field", status: 400 })
+  } else {
+    next()
+  }
 }
 
 // do not forget to expose these functions to other modules
